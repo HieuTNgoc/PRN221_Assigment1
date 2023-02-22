@@ -163,10 +163,16 @@ namespace SalesWPFApp.ViewModels
             // Add item
             AddOrderCommand = new RelayCommand<object>((p) => {
                 if (PProductName == null || PUnitPrice == null || PQuantity == null || PDiscount == null){return false;}
-                if (User == null) { return false; }
+                //if (User == null) { return false; }
                 return true;
             }, (p) => {
-                Order order = new Order { MemberId = User.MemberId, OrderDate = DateTime.Now, RequireDate = DateTime.Now, ShippedDate = DateTime.Now, Freight = (PUnitPrice * PQuantity)*(1 - PDiscount/100) };
+                if (User == null)
+                {
+                    MessageBox.Show($"Admin cannot order, login as normal user o continue", "Add Order");
+                    return;
+                }
+
+                Order order = new Order { MemberId = User.MemberId, OrderDate = DateTime.Now, RequireDate = DateTime.Now, ShippedDate = DateTime.Now, Freight = (PUnitPrice * PQuantity)*(decimal)(1 - (decimal) PDiscount/100) };
                 _OrderRepository.Create(order);
                 MessageBox.Show($"Order of: {User.Email} is created successfully", "Add Order");
                 OrderList = _OrderRepository.ReadByMember(User.MemberId);
@@ -182,6 +188,7 @@ namespace SalesWPFApp.ViewModels
             EditOrderCommand = new RelayCommand<object>((p) =>
             {
                 if (SelectedOrder == null || OrderDate == null || RequireDate == null || ShippedDate == null || Freight == null){return false; }
+                if (User != null) { return false; }
                 return true;
             }, (p) =>
             {
@@ -194,11 +201,19 @@ namespace SalesWPFApp.ViewModels
             DeleteOrderCommand = new RelayCommand<object>((p) =>
             {
                 if (SelectedOrder == null){return false;}
+                if (User != null) { return false; }
                 return true;
             }, (p) =>
             {
+                foreach (var detail in OrderDetailList) {
+                    if (detail.OrderId == SelectedOrder.OrderId)
+                    {
+                        MessageBox.Show($"Remove Order detail first!", "Remove Order");
+                        return;
+                    }
+                }
                 _OrderRepository.Delete(SelectedOrder.OrderId);
-                MessageBox.Show($"Ordr is Removed successfully", "Remove Order");
+                MessageBox.Show($"Order is Removed successfully", "Remove Order");
                 LoadListData();
             });
 
