@@ -221,7 +221,31 @@ namespace SalesWPFApp.ViewModels
 
         void OrderDetailCommand()
         {
+            // Edit item
+            EditOrderDetailCommand = new RelayCommand<object>((p) =>
+            {
+                if (SelectedOrderDetail == null || UnitPrice == null || Quantity == null || Discount == null) { return false; }
+                if (User != null) { return false; }
+                return true;
+            }, (p) =>
+            {
+                _OrderDetailRepository.Update(SelectedOrderDetail.OrderId, SelectedOrderDetail.ProductId, new OrderDetail { OrderId = SelectedOrderDetail.OrderId, ProductId = SelectedOrderDetail.ProductId, UnitPrice = UnitPrice, Quantity = Quantity, Discount = Discount });
+                MessageBox.Show($"Order Detail is edited successfully", "Edit Order Detail");
+                LoadListData();
+            });
 
+            // Remove Item
+            DeleteOrderDetailCommand = new RelayCommand<object>((p) =>
+            {
+                if (SelectedOrderDetail == null) { return false; }
+                if (User != null) { return false; }
+                return true;
+            }, (p) =>
+            { 
+                _OrderDetailRepository.Delete(SelectedOrderDetail.OrderId, SelectedOrderDetail.ProductId);
+                MessageBox.Show($"Order Detail is Removed successfully", "Remove Order Detail");
+                LoadListData();
+            });
         }
     }
 }

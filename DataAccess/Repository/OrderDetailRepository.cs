@@ -23,7 +23,7 @@ namespace DataAccess.Repository
 
         public void Delete(int orderId, int productId)
         {
-            throw new NotImplementedException();
+            _OrderDetailDAO.delete(orderId);
         }
 
         public List<OrderDetail> ReadAll()
@@ -38,7 +38,7 @@ namespace DataAccess.Repository
 
         public void Update(int orderId, int productId, OrderDetail orderDetail)
         {
-            throw new NotImplementedException();
+            _OrderDetailDAO.update(orderId, orderDetail);
         }
     }
 }
