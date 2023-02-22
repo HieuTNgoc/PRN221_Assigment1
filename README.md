@@ -1,4 +1,9 @@
-# WPF_FSTORE
+# PRN221_Assigment1
+- Repo: https://github.com/HieuTNgoc/PRN221_Assigment1.git
 - Student: Trần Ngọc Hiếu - HE153199
 - Admin account config in 2.Business Layer/appsettings.json
-# PRN221_Assigment1
+"AccAdmin": {
+    "email": "admin@gmail.com",
+    "password": "admin123"
+ }
+

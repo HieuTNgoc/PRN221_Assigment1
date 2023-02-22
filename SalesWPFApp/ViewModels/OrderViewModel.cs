@@ -132,7 +132,6 @@ namespace SalesWPFApp.ViewModels
         public ICommand AddOrderCommand { get; set; }
         public ICommand EditOrderCommand { get; set; }
         public ICommand DeleteOrderCommand { get; set; }
-        public ICommand AddOrderDetailCommand { get; set; }
         public ICommand EditOrderDetailCommand { get; set; }
         public ICommand DeleteOrderDetailCommand { get; set; }
 
@@ -146,28 +145,36 @@ namespace SalesWPFApp.ViewModels
 
         void LoadListData()
         {
-            //if (User != null)
-            //{
-                //OrderList = _OrderRepository.ReadByMember(User.MemberId);
-            OrderDetailList = _OrderDetailRepository.ReadAll();
-            //ProductList = _ProductRepository.ReadAll();
-        OrderList = _OrderRepository.ReadAll();
-            //OrderDetailList = _OrderDetailRepository.ReadAll();
-            ProductList = _ProductRepository.ReadAll();
+            if (User != null)
+            {
+                OrderList = _OrderRepository.ReadByMember(User.MemberId);
+                OrderDetailList = _OrderDetailRepository.ReadByOrderList(OrderList.ToList());
+                ProductList = _ProductRepository.ReadAll();
+            } else
+            {
+                OrderList = _OrderRepository.ReadAll();
+                OrderDetailList = _OrderDetailRepository.ReadAll();
+                ProductList = _ProductRepository.ReadAll();
+            }
         }
 
         void OrderCommand()
         {
             // Add item
             AddOrderCommand = new RelayCommand<object>((p) => {
-                if (OrderDate == null || RequireDate == null || ShippedDate == null || Freight == null){return false;}
-                //if (User == null){return false;}
+                if (PProductName == null || PUnitPrice == null || PQuantity == null || PDiscount == null){return false;}
+                if (User == null) { return false; }
                 return true;
             }, (p) => {
-                Order order = new Order { MemberId = User.MemberId, OrderDate = OrderDate, RequireDate = RequireDate, ShippedDate = ShippedDate, Freight = Freight };
+                Order order = new Order { MemberId = User.MemberId, OrderDate = DateTime.Now, RequireDate = DateTime.Now, ShippedDate = DateTime.Now, Freight = (PUnitPrice * PQuantity)*(1 - PDiscount/100) };
                 _OrderRepository.Create(order);
                 MessageBox.Show($"Order of: {User.Email} is created successfully", "Add Order");
                 OrderList = _OrderRepository.ReadByMember(User.MemberId);
+
+                OrderDetail orderdetail = new OrderDetail { OrderId = order.OrderId, ProductId = SelectedProduct.ProductId, UnitPrice = PUnitPrice, Quantity = PQuantity, Discount = PDiscount };
+                _OrderDetailRepository.Create(orderdetail);
+                MessageBox.Show($"Order Detail of: {User.Email} is created successfully", "Add Order Detail");
+                OrderDetailList = _OrderDetailRepository.ReadByOrderList(OrderList.ToList());
             });
 
 
