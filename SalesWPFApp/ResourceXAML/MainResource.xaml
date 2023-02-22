@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:viewmodel="clr-namespace:SalesWPFApp.ViewModels"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <viewmodel:MainViewModel x:Key="MainVM"></viewmodel:MainViewModel>
+    <viewmodel:LoginViewModel x:Key="LoginVM"></viewmodel:LoginViewModel>
+    <viewmodel:ProductViewModel x:Key="ProductVM"></viewmodel:ProductViewModel>
+    <viewmodel:MemberViewModel x:Key="MemberVM"></viewmodel:MemberViewModel>
+    <viewmodel:OrderViewModel x:Key="OrderVM"></viewmodel:OrderViewModel>
+</ResourceDictionary>

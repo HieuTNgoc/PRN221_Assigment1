@@ -1,0 +1,15 @@
+D:\FPT-WorkSpace\PRN221\Asm01Solution\BusinessObject\bin\Debug\net6.0\appsettings.json
+D:\FPT-WorkSpace\PRN221\Asm01Solution\BusinessObject\bin\Debug\net6.0\BusinessObject.deps.json
+D:\FPT-WorkSpace\PRN221\Asm01Solution\BusinessObject\bin\Debug\net6.0\BusinessObject.runtimeconfig.json
+D:\FPT-WorkSpace\PRN221\Asm01Solution\BusinessObject\bin\Debug\net6.0\BusinessObject.dll
+D:\FPT-WorkSpace\PRN221\Asm01Solution\BusinessObject\bin\Debug\net6.0\BusinessObject.pdb
+D:\FPT-WorkSpace\PRN221\Asm01Solution\BusinessObject\obj\Debug\net6.0\BusinessObject.csproj.AssemblyReference.cache
+D:\FPT-WorkSpace\PRN221\Asm01Solution\BusinessObject\obj\Debug\net6.0\BusinessObject.GeneratedMSBuildEditorConfig.editorconfig
+D:\FPT-WorkSpace\PRN221\Asm01Solution\BusinessObject\obj\Debug\net6.0\BusinessObject.AssemblyInfoInputs.cache
+D:\FPT-WorkSpace\PRN221\Asm01Solution\BusinessObject\obj\Debug\net6.0\BusinessObject.AssemblyInfo.cs
+D:\FPT-WorkSpace\PRN221\Asm01Solution\BusinessObject\obj\Debug\net6.0\BusinessObject.csproj.CoreCompileInputs.cache
+D:\FPT-WorkSpace\PRN221\Asm01Solution\BusinessObject\obj\Debug\net6.0\BusinessObject.dll
+D:\FPT-WorkSpace\PRN221\Asm01Solution\BusinessObject\obj\Debug\net6.0\refint\BusinessObject.dll
+D:\FPT-WorkSpace\PRN221\Asm01Solution\BusinessObject\obj\Debug\net6.0\BusinessObject.pdb
+D:\FPT-WorkSpace\PRN221\Asm01Solution\BusinessObject\obj\Debug\net6.0\BusinessObject.genruntimeconfig.cache
+D:\FPT-WorkSpace\PRN221\Asm01Solution\BusinessObject\obj\Debug\net6.0\ref\BusinessObject.dll

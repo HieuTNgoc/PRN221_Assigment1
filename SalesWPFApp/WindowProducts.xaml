@@ -1,0 +1,99 @@
+﻿<Window x:Class="SalesWPFApp.WindowProducts"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SalesWPFApp"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        DataContext="{StaticResource ProductVM}" 
+        Name="productWindow"
+        
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d"
+        Title="Product Management" Height="450" Width="1170">
+    <Grid>
+        <Grid Margin="25,20,405,20" Width="720" RenderTransformOrigin="0.577,0.505">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" ></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <materialDesign:Card Grid.Row="0" Margin="5">
+                <Grid>
+                    <Button HorizontalAlignment="Left"  Command="{Binding AddCommand}"  Background="YellowGreen" Content="Add" Margin="5" Width="100"></Button>
+                    <Button HorizontalAlignment="Center" Command="{Binding EditCommand}" Background="Goldenrod"  Content="Edit" Margin="5" Width="100"></Button>
+                    <Button HorizontalAlignment="Right" Command="{Binding DeleteCommand}" Background="PaleVioletRed" Content="Delete" Margin="5" Width="100"></Button>
+                </Grid>
+            </materialDesign:Card>
+
+            <materialDesign:Card Grid.Row="1" Margin="5" VerticalAlignment="Stretch">
+                <DataGrid Name="dataGridData" 
+                  IsReadOnly="True" ItemsSource="{Binding ProductList, Mode=OneWay}" SelectedItem="{Binding SelectedProduct, Mode=OneWayToSource}" VerticalAlignment="Center" Height="324" Grid.ColumnSpan="4" Grid.RowSpan="2" AutoGenerateColumns="False"  >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="*" Header="ProductId" Binding="{Binding ProductId}"/>
+                        <DataGridTextColumn Width="*" Header="CategoryId" Binding="{Binding CategoryId}"/>
+                        <DataGridTextColumn Width="*" Header="ProductName" Binding="{Binding ProductName}"/>
+                        <DataGridTextColumn Width="*" Header="Weight" Binding="{Binding Weight}"/>
+                        <DataGridTextColumn Width="*" Header="UnitPrice" Binding="{Binding UnitPrice}"/>
+                        <DataGridTextColumn Width="*" Header="UnitStock" Binding="{Binding UnitStock}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </materialDesign:Card>
+        </Grid>
+        <Grid Margin="810,118,-125,-23"> 
+            <Label Content="Product Name" Margin="0,30,0,-31" />
+            <Label Content="CategoryId" Margin="0,80,0,-89" />
+            <Label Content="Weight" Margin="0,130,0,-153" />
+            <Label Content="Unit Price" Margin="0,180,0,-224" />
+            <Label Content="Unit Stock" Margin="0,230,0,-280"  />
+            <TextBox Name="productName" Height="33" Width="195"   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110,25,0,0" 
+                     Text="{Binding  ProductName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <TextBox Name="categoryId" Height="33" Width="195"   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110,75,0,0" 
+                     Text="{Binding  CategoryId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <TextBox Name="weight" Height="33" Width="195"   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110,125,0,0" 
+                     Text="{Binding  Weight, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <TextBox Name="unitPrice" Height="33" Width="195"   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110,175,0,0"
+                     Text="{Binding  UnitPrice, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <TextBox Name="unitStock" Height="33" Width="195"   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110,225,0,0"
+                     Text="{Binding  UnitStock, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+        </Grid>
+
+        <materialDesign:ColorZone Mode="PrimaryMid" Padding="16" Height="73" Margin="792,26,28,0">
+            <DockPanel Margin="0,0,0,0">
+                <StackPanel Orientation="Horizontal" materialDesign:RippleAssist.IsCentered="True" Width="474">
+                    <materialDesign:ColorZone
+                            Mode="Standard"
+                            Padding="8 4 8 4"
+                            CornerRadius="2"
+                            Panel.ZIndex="1"
+                            Margin="0 0 0 0"
+                            materialDesign:ShadowAssist.ShadowDepth="Depth1" Width="272">
+                        <Grid Width="277">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Button Style="{DynamicResource MaterialDesignToolButton}">
+                                <materialDesign:PackIcon Kind="Magnify"  Opacity=".56" />
+                            </Button>
+                            <TextBox
+                                Text="{Binding Key, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                Grid.Column="1"
+                                Margin="8 0 0 0"
+                                materialDesign:HintAssist.Hint="Search by Product Name"
+                                materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                BorderThickness="0"
+                                MinWidth="200"
+                                VerticalAlignment="Center" />
+                        </Grid>
+                    </materialDesign:ColorZone>
+                    <Button  Style="{DynamicResource MaterialDesignToolForegroundButton}" Margin="8 0 0 0" Panel.ZIndex="0"
+                             Command="{Binding SearchCommand}">
+                        <materialDesign:PackIcon Kind="Send" />
+                    </Button>
+                </StackPanel>
+            </DockPanel>
+        </materialDesign:ColorZone>
+    </Grid>
+</Window>

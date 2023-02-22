@@ -1,0 +1,139 @@
+﻿<Window x:Class="SalesWPFApp.WindowOrders"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SalesWPFApp"
+        
+        Name="orderWindow"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        mc:Ignorable="d"
+        Title="Order Management" Height="800" Width="1500">
+    <Grid>
+        <Grid Margin="20,20,750,0"  Height="240" VerticalAlignment="Top">
+            <materialDesign:Card Margin="1280,74,-712,5" Padding="10">
+                <Grid>
+                    <Button VerticalAlignment="Top" HorizontalAlignment="Center"  Command="{Binding AddOrderCommand}"  Background="YellowGreen" Content="Add" Margin="5" Width="100"></Button>
+                    <Button VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding EditOrderCommand}" Background="Goldenrod"  Content="Edit" Margin="5" Width="100"></Button>
+                    <Button VerticalAlignment="Bottom" HorizontalAlignment="Center" Command="{Binding DeleteOrderCommand}" Background="PaleVioletRed" Content="Delete" Margin="5" Width="100"></Button>
+                </Grid>
+            </materialDesign:Card>
+
+            <materialDesign:Card Grid.Row="0" Margin="5" VerticalAlignment="Stretch">
+                <DataGrid Name="dataGridData" 
+                  IsReadOnly="True" ItemsSource="{Binding OrderList,Mode=OneWay}" SelectedItem="{Binding SelectedOrder, Mode=OneWayToSource}" VerticalAlignment="Center" Height="240" Grid.ColumnSpan="4" Grid.RowSpan="2" AutoGenerateColumns="False" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="*" Header="OrderId" Binding="{Binding OrderId}"/>
+                        <DataGridTextColumn Width="*" Header="MemberId" Binding="{Binding MemberId}"/>
+                        <DataGridTextColumn Width="*" Header="OrderDate" Binding="{Binding OrderDate}"/>
+                        <DataGridTextColumn Width="*" Header="RequireDate" Binding="{Binding RequireDate}"/>
+                        <DataGridTextColumn Width="*" Header="ShippedDate" Binding="{Binding ShippedDate}"/>
+                        <DataGridTextColumn Width="*" Header="Freight" Binding="{Binding Freight}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </materialDesign:Card>
+        </Grid>
+
+
+        <Grid Margin="20,0,750,0" Height="240" VerticalAlignment="Center"  >
+            <materialDesign:Card Margin="1280,100,-712,25" Padding="10">
+                <Grid>
+                    <Button VerticalAlignment="Top" HorizontalAlignment="Center" Command="{Binding EditOrderDetailCommand}" Background="Goldenrod"  Content="Edit" Margin="5" Width="100"></Button>
+                    <Button VerticalAlignment="Bottom" HorizontalAlignment="Center" Command="{Binding DeleteOrderDetailCommand}" Background="PaleVioletRed" Content="Delete" Margin="5" Width="100"></Button>
+                </Grid>
+            </materialDesign:Card>
+            <materialDesign:Card  Margin="5" VerticalAlignment="Stretch">
+                <DataGrid      
+                  IsReadOnly="True" ItemsSource="{Binding OrderDetailList, Mode=OneWay}" SelectedItem="{Binding SelectedOrderDetail, Mode=OneWayToSource}" VerticalAlignment="Center" Height="240" Grid.ColumnSpan="4" Grid.RowSpan="2" AutoGenerateColumns="False" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="*" Header="OrderId" Binding="{Binding OrderId}"/>
+                        <DataGridTextColumn Width="*" Header="ProductId" Binding="{Binding ProductId}"/>
+                        <DataGridTextColumn Width="*" Header="UnitPrice" Binding="{Binding UnitPrice}"/>
+                        <DataGridTextColumn Width="*" Header="Quantity" Binding="{Binding Quantity}"/>
+                        <DataGridTextColumn Width="*" Header="Discount" Binding="{Binding Discount}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </materialDesign:Card>
+        </Grid>
+
+        <Grid Margin="20,0,750,20" Height="240" VerticalAlignment="Bottom" >
+            <materialDesign:Card Margin="1278,100,-712,40" Padding="10">
+                <Grid>
+                    <Button VerticalAlignment="Center" HorizontalAlignment="Center"  Command="{Binding AddOrderDetailCommand}"  Background="YellowGreen" Content="Add" Margin="5" Width="100"></Button>
+                </Grid>
+            </materialDesign:Card>
+            <materialDesign:Card Grid.Row="1" Margin="5" VerticalAlignment="Stretch">
+                <DataGrid Name="dataGridDataProduct" 
+                  IsReadOnly="True" ItemsSource="{Binding ProductList, Mode=OneWay}" SelectedItem="{Binding SelectedProduct, Mode=OneWayToSource}" VerticalAlignment="Center" Height="240" Grid.ColumnSpan="4" Grid.RowSpan="2" AutoGenerateColumns="False"  >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="*" Header="ProductId" Binding="{Binding ProductId}"/>
+                        <DataGridTextColumn Width="*" Header="CategoryId" Binding="{Binding CategoryId}"/>
+                        <DataGridTextColumn Width="*" Header="ProductName" Binding="{Binding ProductName}"/>
+                        <DataGridTextColumn Width="*" Header="Weight" Binding="{Binding Weight}"/>
+                        <DataGridTextColumn Width="*" Header="UnitPrice" Binding="{Binding UnitPrice}"/>
+                        <DataGridTextColumn Width="*" Header="UnitStock" Binding="{Binding UnitStock}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </materialDesign:Card>
+        </Grid>
+
+
+        <Grid Margin="860,48,245,-305">
+            <TextBlock FontSize="25px" Margin="110,-20,32,702" FontWeight="Bold">Order Information</TextBlock>
+            <Label Content="MemberId" Margin="0,30,276,598" />
+            <Label Content="OrderDate" Margin="0,65,0,565" />
+            <Label Content="RequireDate" Margin="0,100,0,510" />
+            <Label Content="ShippedDate" Margin="0,135,0,460" />
+            <Label Content="Freight" Margin="0,170,0,432"  />
+            <TextBox Name="memberId" Height="33" Width="222"   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110,20,0,0"
+                Text="{Binding  MemberId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <TextBox Name="orderDate" Height="33" Width="222"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110,55,0,0" 
+                     Text="{Binding  OrderDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <TextBox Name="requireDate" Height="33" Width="222"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110,90,0,0" 
+                     Text="{Binding  RequireDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <TextBox Name="shippedDate" Height="33" Width="222"   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110,125,0,0"
+                     Text="{Binding  ShippedDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <TextBox Name="freight" Height="33" Width="222"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110,160,0,0"
+                     Text="{Binding  Freight, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+        </Grid>
+
+        <Grid Margin="864,305,245,-446">
+            <TextBlock FontSize="25px" Margin="110,-20,32,702" FontWeight="Bold">Order Detail</TextBlock>
+            <Label Content="OrderId" Margin="0,30,0,598" />
+            <Label Content="ProductName" Margin="0,65,276,565" />
+            <Label Content="UnitPrice" Margin="0,100,276,510" />
+            <Label Content="Quantity" Margin="0,135,298,460" />
+            <Label Content="Discount" Margin="0,170,276,432"  />
+            <TextBox Name="ProductId" Height="33" Width="222"   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110,20,0,0" 
+                     Text="{Binding  OrderId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <TextBox Name="ProductName" Height="33" Width="222"   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110,55,0,0" 
+                     Text="{Binding  ProductName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <TextBox Name="UnitPrice" Height="33" Width="222"   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110,90,0,0" 
+                     Text="{Binding  UnitPrice, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <TextBox Name="Quantity" Height="33" Width="222"   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110,125,0,0" 
+                     Text="{Binding  Quantity, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <TextBox Name="Discount" Height="33" Width="222"   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110,160,0,0" 
+                     Text="{Binding  Discount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+        </Grid>
+
+
+        <Grid Margin="860,536,245,-576">
+            <TextBlock FontSize="25px" Margin="110,15,10,702" FontWeight="Bold">Order Product</TextBlock>
+            <Label Content="ProductName" Margin="0,65,298,565" />
+            <Label Content="UnitPrice" Margin="0,100,0,510" />
+            <Label Content="Quantity" Margin="0,135,0,460" />
+            <Label Content="Discount" Margin="0,170,265,460"  />
+            <TextBox Name="ProductName0" Height="33" Width="222"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110,55,0,0"
+                     Text="{Binding  PProductName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <TextBox Name="UnitPrice0" Height="33" Width="222"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110,90,0,0"
+                     Text="{Binding  PUnitPrice, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <TextBox Name="Quantity0" Height="33" Width="222"   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110,125,0,0"
+                     Text="{Binding  PQuantity, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <TextBox Name="Discount0" Height="33" Width="222"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110,160,0,0" 
+                     Text="{Binding  PDiscount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+        </Grid>
+    </Grid>
+</Window>
+
